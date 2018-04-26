@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <!-- <properties resource="jdbc.properties"/> -->
+
+    <!-- 指定数据连接驱动jar地址 -->
+    <classPathEntry location="D:/lib/mysql-connector-java-5.1.31.jar" />
+
+    <!--<classPathEntry-->
+            <!--location="D:\lib\mysql-connector-java-5.1.31.jar"/>-->
+
+    <context id="guaranteereport" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="utf-8"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <!-- <plugin type="com.chengzi.dal.common.CustomModelPlugin"></plugin> -->
+
+
+        <!-- 关闭注解信息 -->
+        <commentGenerator>
+        	<property name="suppressDate" value="true"/>
+            <!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <!-- jdbc连接 -->
+        <!-- 
+        <jdbcConnection driverClass="${ds.yrd.mysqlClassName}"
+                        connectionURL="${ds.yrd.mysqlUrl}" userId="${ds.yrd.username}"
+                        password="${ds.yrd.password}" />
+         -->
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/maven_web_dev?characterEncoding=UTF8" userId="root"
+                        password="123456" />
+         
+         
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+            <!--connectionURL="jdbc:mysql://192.169.2.246:3306/born_guaranteereport_sanxia?characterEncoding=UTF8"-->
+            <!--userId="root"-->
+            <!--password="123456">-->
+        <!--</jdbcConnection>-->
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.chengzi.mybatis.model" targetProject="mavenWebProject/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成mapxml文件 -->
+        <sqlMapGenerator targetPackage="mybatis.xml" targetProject="mavenWebProject/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapxml对应client，也就是接口dao -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chengzi.mybatis.mapper"
+                             targetProject="mavenWebProject/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="user_base_info">
+        	<generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        
+    </context>
+</generatorConfiguration>

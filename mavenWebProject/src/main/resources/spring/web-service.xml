@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+         http://www.springframework.org/schema/task
+		 http://www.springframework.org/schema/task/spring-task-3.0.xsd 
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.chengzi.web.webService"/>
+    <task:annotation-driven/>
+	<jaxws:endpoint id="helloWorldWebServiceEndPoint" implementor="com.chengzi.web.webService.HelloWorldWebServiceImpl" address="/helloWorldWebService"></jaxws:endpoint>
+    <!-- 
+    <jaxws:endpoint implementor="#calculatorFacade" address="/calculatorFacade"/>
+    <jaxws:endpoint implementor="#sysParamFacade" address="/sysParamFacade"/>
+    <jaxws:endpoint implementor="#consumerUserFacade" address="/consumerUserFacade"/>
+    <jaxws:endpoint implementor="#commodityFacade" address="/commodityFacade"/>
+    <jaxws:endpoint implementor="#noticeFacade" address="/noticeFacade"/>
+    <jaxws:endpoint implementor="#contractFacade" address="/contractFacade"/>
+    <jaxws:endpoint implementor="#regionFacade" address="/regionFacade"/>
+    <jaxws:endpoint implementor="#customerFacade" address="/customerFacade"/>
+    <jaxws:endpoint implementor="#SMSSendFacade" address="/SMSSendFacade"/>
+    <jaxws:endpoint implementor="#wxConcatFacade" address="/wxConcatFacade"/>
+    <jaxws:endpoint implementor="#problemFeedbackFacade" address="/problemFeedbackFacade"/>
+    <jaxws:endpoint implementor="#returnContractFacade" address="/returnContractFacade"/>
+    <jaxws:endpoint implementor="#refundApplayFacade" address="/refundApplayFacade"/>
+    <jaxws:endpoint implementor="#messageFacade" address="/messageFacade"/>
+     -->
+    <!-- quartz job invoke end -->
+</beans>

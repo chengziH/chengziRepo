@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app metadata-complete="true" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name>Archetype Created Web Application</display-name>
+  
+  	<!-- logback -->
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>WEB-INF/config/logback.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
+    <!-- 跨站攻击防御filter -->
+  
+  
+    <context-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath*:spring/*.xml</param-value>
+  	</context-param>
+  	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+  	
+  	<filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+  		<filter-name>encodingFilter</filter-name>
+  		<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+  	
+  	<!-- 
+  	<filter>
+  		<filter-name>encodeFilter</filter-name>
+  		<filter-class>com.chengzi.web.filter.EncodeFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+  		<filter-name>encodeFilter</filter-name>
+  		<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+  	 -->
+  
+  	<servlet>
+        <servlet-name>mavenWebProject</servlet-name>
+        <!-- DispatcherServlet对应的上下文配置，默认为contextConfigLocation = WEB-INF/${servlet-name}-servlet.xml -->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+         	<param-name>contextConfigLocation</param-name>
+         	<param-value>/WEB-INF/config/mavenWebProject-servlet.xml</param-value>
+	     </init-param>
+	     <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>mavenWebProject</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!-- 
+    <servlet-mapping>
+        <servlet-name>mavenWebProject</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mavenWebProject</servlet-name>
+        <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+     -->
+    
+    
+   <servlet>   
+	    <servlet-name>CXFServlet</servlet-name>   
+	    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>   
+	    <init-param>   
+	        <param-name>contextConfigLocation</param-name>   
+	        <param-value>classpath*:spring/web-service.xml</param-value>   
+	    </init-param>  
+		<load-on-startup>2</load-on-startup> 
+  </servlet>
+  <servlet-mapping>   
+    	<servlet-name>CXFServlet</servlet-name>   
+    	<url-pattern>/webservice/*</url-pattern>   
+  </servlet-mapping>
+</web-app>

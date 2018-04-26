@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<configuration scan="true" scanPeriod="180 seconds" debug="true">
+
+	<!-- ***************************************************************** -->
+	<!-- STDOUT APENDER -->
+	<!-- ***************************************************************** -->
+	<!-- 打印日志级别为INFO的日志 -->
+	<appender name="INFO-LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+		<file>D:/mavenWebProjectLog/mavenWebProject-info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <!-- 按天回滚 daily -->  
+            <fileNamePattern>D:/mavenWebProjectLog/mavenWebProject-info-%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <!-- 日志最大的历史 60天 -->  
+            <maxHistory>60</maxHistory>  
+        </rollingPolicy>  
+        <encoder>  
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>  
+            <!-- <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L[%X{gid}]-/%msg%n%n</pattern> -->
+        </encoder>  
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->  
+            <level>INFO</level>  
+            <onMatch>ACCEPT</onMatch>  
+            <onMismatch>DENY</onMismatch>  
+        </filter>  
+    </appender> 
+    
+    <!-- 出错日志 appender  -->  
+    <appender name="ERROR-LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+    	<file>D:/mavenWebProjectLog/mavenWebProject-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <!-- 按天回滚 daily -->  
+            <!-- log.dir 在maven profile里配置 -->  
+            <fileNamePattern>D:/mavenWebProjectLog/mavenWebProject-error-%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <!-- 日志最大的历史 60天 -->  
+            <maxHistory>60</maxHistory>  
+        </rollingPolicy>  
+        <encoder>  
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>  
+        </encoder>  
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->  
+            <level>ERROR</level>  
+            <onMatch>ACCEPT</onMatch>  
+            <onMismatch>DENY</onMismatch>  
+        </filter>  
+    </appender>  
+	<!-- 
+	<appender name="ROLLING-ESTATE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>D:/mavenWebProjectLog/mavenWebProject.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>D:/mavenWebProjectLog/mavenWebProject.log-%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L[%X{gid}]-/%msg%n%n</pattern>
+		</encoder>
+	</appender>
+	 -->
+	<if condition='property("os.name").toUpperCase().contains("WINDOWS")'>
+	    <then>
+	        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	            <encoder>
+	                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36}:%L[%X{gid}]-%msg%n%n</pattern>
+	            </encoder>
+	        </appender>
+	        <root>
+	            <appender-ref ref="STDOUT" />
+	        </root>
+	    </then>
+	</if>
+	<appender name="async-ROLLING-ESTATE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="INFO-LOGGER"/>
+        <appender-ref ref="ERROR-LOGGER"/>
+    </appender>
+	<root level="INFO">
+		<appender-ref ref="async-ROLLING-ESTATE" />
+	</root>
+</configuration>
