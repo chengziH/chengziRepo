@@ -1,0 +1,9 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false #register-with-eureka 为false意味着这个项目仅作为服务器，不作为客户端；
+    fetch-registry: false  #fetch-registry为false意味着这个项目无需注册自身
+    eureka-server-u-r-l-context: http://${eureka.instance.hostname}:${server.post}/eureka/
